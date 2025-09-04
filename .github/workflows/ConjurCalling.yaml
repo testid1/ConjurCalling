@@ -39,9 +39,9 @@ jobs:
           account: ${{ secrets.CONJUR_ACCOUNT }}
           host_id: ${{ secrets.CONJUR_HOST_ID }}
           api_key: ${{ secrets.CONJUR_API_KEY }}
-          secrets: data/vault/conjurtest/conjurtest/password|wiz_client_secret
+          secrets: data/vault/conjurtest/conjurtest/password
 
       - name: Set Outputs
         id: set-output
         run: |
-          echo "wiz_client_secret=${wiz_client_secret}" >> $GITHUB_OUTPUT
+          echo "wiz_client_secret=${secrets.PASSWORD}" >> $GITHUB_OUTPUT

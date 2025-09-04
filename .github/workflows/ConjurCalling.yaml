@@ -39,7 +39,7 @@ jobs:
           account: ${{ secrets.CONJUR_ACCOUNT }}
           host_id: ${{ secrets.CONJUR_HOST_ID }}
           api_key: ${{ secrets.CONJUR_API_KEY }}
-          secrets: ${{ inputs.CONJUR_VARIABLE_PATH }}|wiz_client_secret
+          secrets: data/vault/conjurtest/conjurtest/password|wiz_client_secret
 
       - name: Set Outputs
         id: set-output

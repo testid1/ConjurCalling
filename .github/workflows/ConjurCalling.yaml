@@ -47,6 +47,6 @@ jobs:
           WIZ_PASSWORD: ${{ env.WIZ_PASSWORD }}
         run: |
           echo "${#WIZ_PASSWORD}"
-          echo "::set-output name=wiz_client_secret::$WIZ_PASSWORD"
+          echo "wiz_client_secret=${WIZ_PASSWORD}" >> $GITHUB_OUTPUT
           
 #          echo "wiz_client_secret=$WIZ_PASSWORD" >> $GITHUB_OUTPUT

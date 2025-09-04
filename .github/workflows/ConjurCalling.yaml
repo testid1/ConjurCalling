@@ -51,4 +51,4 @@ jobs:
         id: debug
         run: |
           secret="${{ steps.setoutput.outputs.wiz_client_secret }}"
-          echo "length of secret: "${#secret}"
+          echo "length of secret:${#secret}"

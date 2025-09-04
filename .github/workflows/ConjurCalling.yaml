@@ -18,7 +18,8 @@ on:
         required: true
 
     outputs:
-      wiz_client_secret: ${{ jobs.conjur.outputs.wiz_client_secret }}
+      wiz_client_secret:
+        value: ${{ jobs.conjur.outputs.wiz_client_secret }}
 
  
 jobs:

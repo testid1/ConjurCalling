@@ -46,11 +46,5 @@ jobs:
         env:
           WIZ_PASSWORD: ${{ env.WIZ_PASSWORD }}
         run: |
-          {
-            echo "wiz_client_secret<<__EOF__"
-            printf '%s' "$WIZ_PASSWORD"
-            echo
-            echo "__EOF__"
-          } >> "$GITHUB_OUTPUT"  
-#          echo "${#WIZ_PASSWORD}"
-#          echo "wiz_client_secret=$WIZ_PASSWORD" >> $GITHUB_OUTPUT
+          echo "${#WIZ_PASSWORD}"
+          echo "wiz_client_secret=$WIZ_PASSWORD" >> $GITHUB_OUTPUT

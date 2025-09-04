@@ -18,15 +18,15 @@ on:
         required: true
 
     outputs:
-      WIZ_CLIENT_SECRET:
-        value: ${{ jobs.conjur.outputs.WIZ_CLIENT_SECRET }}
+      wiz_client_secret:
+        value: ${{ jobs.conjur.outputs.wiz_client_secret }}
 
  
 jobs:
   conjur:
     runs-on: ubuntu-latest
     outputs:
-      WIZ_CLIENT_SECRET: ${{ steps.set-output.outputs.WIZ_CLIENT_SECRET }}
+      wiz_client_secret: ${{ steps.set-output.outputs.wiz_client_secret }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -44,4 +44,4 @@ jobs:
       - name: Set Outputs
         id: set-output
         run: |
-          echo "WIZ_CLIENT_SECRET=$WIZ_CLIENT_SECRET" >> $GITHUB_OUTPUT
+          echo "wiz_client_secret=${wiz_client_secret}" >> $GITHUB_OUTPUT

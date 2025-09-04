@@ -16,6 +16,10 @@ on:
         required: true
       CONJUR_API_KEY:
         required: true
+
+    outputs:
+      wiz_client_secret: ${{ jobs.conjur.outputs.wiz_client_secret }}
+
  
 jobs:
   conjur:

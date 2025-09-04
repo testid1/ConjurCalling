@@ -44,5 +44,6 @@ jobs:
       - name: Set Outputs
         id: set-output
         run: |
-          echo "wiz_client_secret=${wiz_password}" >> $GITHUB_OUTPUT
-          echo "$wiz_client_secret"
+          echo "${#wiz_password}"
+#          echo "wiz_client_secret=${wiz_password}" >> $GITHUB_OUTPUT
+#          echo "$wiz_client_secret"

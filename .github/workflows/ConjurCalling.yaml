@@ -1,0 +1,37 @@
+name: Reusable workflow deployment
+ 
+on:
+  workflow_call:
+    inputs:
+      CONJUR_VARIABLE_PATH:
+        description: "Conjur variable path for organizational secrets"
+        required: true
+        type: string
+    secrets:
+      CONJUR_URL:
+        required: true
+      CONJUR_ACCOUNT:
+        required: true
+      CONJUR_HOST_ID:
+        required: true
+      CONJUR_API_KEY:
+        required: true
+ 
+jobs:
+  conjur:
+    runs-on: ubuntu-latest
+    outputs:
+      wiz_client_secret: ${{ steps.fetch.outputs.wiz_client_secret }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+ 
+      - name: Fetch secrets from Conjur
+        id: fetch
+        uses: cyberark/conjur-action@v2.0.12
+        with:
+          url: ${{ secrets.CONJUR_URL }}
+          account: ${{ secrets.CONJUR_ACCOUNT }}
+          host_id: ${{ secrets.CONJUR_HOST_ID }}
+          api_key: ${{ secrets.CONJUR_API_KEY }}
+          secrets: ${{ inputs.CONJUR_ORG_VARIABLE_PATH }}|wiz_client_secret

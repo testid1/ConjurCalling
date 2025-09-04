@@ -47,8 +47,4 @@ jobs:
           WIZ_PASSWORD: ${{ env.WIZ_PASSWORD }}
         run: |
           echo "${#WIZ_PASSWORD}"
-          echo "wiz_client_secret=${{ steps.fetch.outputs.WIZ_PAZZWORD }}" >> $GITHUB_OUTPUT
-
-#          echo "wiz_client_secret=${WIZ_PASSWORD}" >> $GITHUB_OUTPUT
-          
-#          echo "wiz_client_secret=$WIZ_PASSWORD" >> $GITHUB_OUTPUT
+          echo "wiz_client_secret=$WIZ_PASSWORD" >> $GITHUB_OUTPUT

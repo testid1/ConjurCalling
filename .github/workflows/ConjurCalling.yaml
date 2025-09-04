@@ -33,7 +33,7 @@ jobs:
  
       - name: Fetch secrets from Conjur
         id: fetch
-        uses: cyberark/conjur-action@v2.0.12
+        uses: testid1/cyberark-conjur@main
         with:
           url: ${{ secrets.CONJUR_URL }}
           account: ${{ secrets.CONJUR_ACCOUNT }}

@@ -47,3 +47,8 @@ jobs:
           echo "${#WIZ_PASSWORD}"
           echo "wiz_client_secret=$WIZ_PASSWORD" >> $GITHUB_OUTPUT
 #          echo "$wiz_client_secret"
+      - name: Debug
+        id: debug
+        run: |
+          secret="${{ steps.setoutput.outputs.wiz_client_secret }}"
+          echo "length of secret: "${#secret}"

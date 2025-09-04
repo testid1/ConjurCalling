@@ -21,7 +21,7 @@ jobs:
   conjur:
     runs-on: ubuntu-latest
     outputs:
-      wiz_client_secret: ${{ steps.fetch.outputs.wiz_client_secret }}
+      wiz_client_secret: ${{ steps.set-output.outputs.wiz_client_secret }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -35,3 +35,8 @@ jobs:
           host_id: ${{ secrets.CONJUR_HOST_ID }}
           api_key: ${{ secrets.CONJUR_API_KEY }}
           secrets: ${{ inputs.CONJUR_VARIABLE_PATH }}|wiz_client_secret
+
+      - name: Set Outputs
+        id: set-output
+        run: |
+          echo "wiz_client_secret=$WIZ_CLIENT_SECRET" >>$GITHUB_OUTPUT

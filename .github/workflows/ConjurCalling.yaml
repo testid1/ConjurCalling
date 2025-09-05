@@ -31,3 +31,17 @@ jobs:
           api_key: ${{ secrets.CONJUR_API_KEY }}
           secrets: ${{ inputs.CONJUR_VARIABLE_PATH }}
 #          certificate: ${{ secrets.CONJUR_CERT }} # optional
+      - name: Export secrets into env for rest of job
+        run: |
+          IFS=';' read -ra ITEMS <<< "${{ inputs.CONJUR_VARIABLE_PATH }}"
+          for item in "${ITEMS[@]}"; do
+            conjur_path="${item%%|*}"
+            if [[ "$item" == *"|"* ]]; then
+              env_name="${item##*|}"
+            else
+              base="$(basename "$conjur_path")"
+              env_name="${base^^}"
+            fi
+            echo "$env_name=${!env_name}" >> $GITHUB_ENV
+          done
+

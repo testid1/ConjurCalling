@@ -43,8 +43,10 @@ jobs:
           
       - name: Set Outputs
         id: setoutput
-        env:
-          WIZ_PASSWORD: ${{ env.WIZ_PASSWORD }}
         run: |
           echo "${#WIZ_PASSWORD}"
           echo "wiz_client_secret=$WIZ_PASSWORD" >> $GITHUB_OUTPUT
+
+     
+#        env:
+#          WIZ_PASSWORD: ${{ env.WIZ_PASSWORD }}

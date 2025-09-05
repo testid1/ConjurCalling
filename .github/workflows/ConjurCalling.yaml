@@ -1,10 +1,9 @@
-name: Reusable workflow deployment
- 
+name: conjur-fetch-apikey
 on:
   workflow_call:
     inputs:
       CONJUR_VARIABLE_PATH:
-        description: "Conjur variable path for organizational secrets"
+        description: "Semicolon-delimited list of Conjur vars, optional env names (e.g. db/user|USER;db/pass)"
         required: true
         type: string
     secrets:
@@ -16,37 +15,19 @@ on:
         required: true
       CONJUR_API_KEY:
         required: true
-
-    outputs:
-      wiz_client_secret:
-        value: ${{ jobs.conjur.outputs.wiz_client_secret }}
-
+#      CONJUR_CERT:           # optional: if using self-signed TLS
+#        required: false
  
 jobs:
-  conjur:
+  fetch:
     runs-on: ubuntu-latest
-    outputs:
-      wiz_client_secret: ${{ steps.setoutput.outputs.wiz_client_secret }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
- 
-      - name: Fetch secrets from Conjur
-        id: fetch
-        uses: cyberark/conjur-action@v2.0.12
+      - name: Fetch secrets from Conjur (API key auth)
+        uses: cyberark/conjur-action@v2.0.5
         with:
           url: ${{ secrets.CONJUR_URL }}
           account: ${{ secrets.CONJUR_ACCOUNT }}
           host_id: ${{ secrets.CONJUR_HOST_ID }}
           api_key: ${{ secrets.CONJUR_API_KEY }}
-          secrets: ${{ inputs.CONJUR_VARIABLE_PATH }}|wiz_password
-          
-      - name: Set Outputs
-        id: setoutput
-        run: |
-          echo "${#WIZ_PASSWORD}"
-          echo "wiz_client_secret=$WIZ_PASSWORD" >> $GITHUB_OUTPUT
-
-     
-#        env:
-#          WIZ_PASSWORD: ${{ env.WIZ_PASSWORD }}
+          secrets: ${{ inputs.CONJUR_VARIABLE_PATH }}
+#          certificate: ${{ secrets.CONJUR_CERT }} # optional
